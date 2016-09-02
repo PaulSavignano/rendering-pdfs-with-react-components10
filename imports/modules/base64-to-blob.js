@@ -2,13 +2,13 @@ const buildByteArray = (string, stringLength) => {
   const buffer = new ArrayBuffer(stringLength)
   const array = new Uint8Array(buffer)
   for (let i = 0; i < stringLength; i++) {
-    array[i] = string.charCode(i)
+    array[i] = string.charCodeAt(i)
   }
   return array
 }
 
 const createBlob = (array) => {
-  new Blob([array], 'application/pdf')
+  return new Blob([array], { type: 'application/pdf' })
 }
 
 

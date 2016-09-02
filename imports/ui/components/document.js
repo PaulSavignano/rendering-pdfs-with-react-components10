@@ -1,9 +1,12 @@
 import React from 'react'
 import InlineCss from 'react-inline-css'
 import { Button, ListGroupItem } from 'react-bootstrap'
+import fileSaver from 'file-saver'
 import { Meteor } from 'meteor/meteor'
 import { Bert } from 'meteor/themeteorchef:bert'
 import { removeDocument } from '../../api/documents/methods'
+import { base64ToBlob } from '../../modules/base64-to-blob'
+
 
 const handleDownloadPDF = (event) => {
   event.preventDefault()
@@ -15,6 +18,7 @@ const handleDownloadPDF = (event) => {
     if (error) {
       Bert.alert(error.reason, 'danger')
     } else {
+      console.log(response)
       const blob = base64ToBlob(response.base64)
       fileSaver.saveAs(blob, response.fileName)
       target.innerHTML = 'Download'
@@ -49,7 +53,7 @@ export const Document = ({ document }) => (
     padding: 20px;
     }
     .btn { display: none }
-    .hr { display: none }
+    hr { display: none }
     h3 {
     font-size: 28px;
     margin-top: 0px;
@@ -63,7 +67,7 @@ export const Document = ({ document }) => (
     }
   `}>
     <ListGroupItem className="Document">
-      <Button onClick={ handleDownloadPDF } data-id={ document._id } bsStyle="success">Add</Button>
+      <Button onClick={ handleDownloadPDF } data-id={ document._id } bsStyle="success">Download</Button>
       <Button onClick={ handleRemoveDocument } data-id={ document._id } bsStyle="danger">Remove</Button>
       <hr/>
       <h3>{ document.title }</h3>

@@ -1,5 +1,5 @@
 import ReactDOMServer from 'react-dom/server'
-import pdf from 'pdf'
+import pdf from 'html-pdf'
 import fs from 'fs'
 
 let module
@@ -23,7 +23,7 @@ const generatePDF = (html, fileName) => {
       if (error) {
         module.reject(error)
       } else {
-        module.resolve({ filName, base64: getBase64String(response.filename)})
+        module.resolve({ fileName, base64: getBase64String(response.filename)})
         fs.unlink(response.filename)
       }
     })
